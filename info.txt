@@ -1,0 +1,9 @@
+Metoda potęgowa może dawać niedokładne wyniki w przypadku, gdy:
+
+Punkt początkowy jest zbyt daleko od prawdziwej wartości własnej. W takim przypadku iteracje mogą zbiec do złej wartości lub mogą zbiegać wolno.
+
+Macierz ma wartości własne o dużym różnicowaniu. W takim przypadku metoda potęgowa może szybciej zbiegać do jednej z wartości własnych, co może prowadzić do niedokładnych wyników dla pozostałych wartości własnych.
+
+Macierz jest bardzo duża lub ma duży rozmiar przestrzeni własnej. W takim przypadku metoda potęgowa może wymagać dużej liczby iteracji, co może prowadzić do zwiększenia błędu numerycznego.
+
+Macierz ma wartości własne o dużej wartości bezwzględnej lub ma wartości własne o małej wartości bezwzględnej. W takim przypadku metoda potęgowa może szybciej zbiegać do jednej z wartości własnych, co może prowadzić do niedokładnych wyników dla pozostałych wartości własnych.
