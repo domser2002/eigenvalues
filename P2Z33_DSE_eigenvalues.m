@@ -10,14 +10,36 @@ function [E,err,k,x0] = P2Z33_DSE_eigenvalues(A,tol,kmax)
 % tol (optional) - error tolerance, by default 1e-6,
 % kmax (optional) - max number of iterations, by defaut 100.
 % Return values:
-% E - vector of eigenvalues of matrix A,
-% err - error after all iterations,
-% k - number of iterations performed,
+% E - vector of eigenvalues of matrix A which were possible to find,
+% err - vector of errors after all iterations,
+% k - vector of numbers of iterations performed,
 % x0 - initial approximation.
+arguments
+    A
+    tol=1e-6;
+    kmax=100;
+end
+%warning('off', 'all')
 m=max(max(A));
 x0=m*rand(size(A,1),1);
-E=[0,0];
-err=0;
+lambda=m*rand(size(A,1),1);
+err=1;
 k=0;
+while k<kmax
+    if err<tol
+        break;
+    end
+    % Compute the new approximation of the eigenvector
+    y = A*x0;
+    % Compute the new approximation of the eigenvalue
+    lambdaNew = (y'*x0)/(x0'*x0);
+    % Compute the error between the old and new approximations of the eigenvalue
+    err = abs(lambda - lambdaNew);
+    % Update the variables
+    lambda = lambdaNew;
+    x0 = y/norm(y);
+    k=k+1;
+end
+E=lambda;
 end
 
