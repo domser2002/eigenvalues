@@ -1,5 +1,5 @@
 function A = deflate(A,m,x)
-% Autor: Domnik Seredyn
+% Autor: Domnik_Seredyn_320732
 % A=deflate(A,m,x) deflates matrix A using Gaussian eliminattion matrix
 for i=2:m
     A(i,:)=A(i,:)-(x(i)/x(1)).*A(1,:);

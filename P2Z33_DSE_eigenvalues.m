@@ -25,13 +25,13 @@ m=max(max(A));
 x0=m*rand(n,1);
 lambda=zeros(1,n);
 err=ones(1,n);
-k=1;
+k=ones(1,n);
 i=1;
 x=x0;
 m=n;
 s=0;
 while i<=n
-    while k<kmax
+    while k(i)<kmax
         if err(i)<tol
             break;
         end
@@ -44,7 +44,7 @@ while i<=n
         % Update the variables
         lambda(i) = lambdaNew;
         x = y/norm(y);
-        k = k + 1;
+        k(i) = k(i) + 1;
     end
 %     if err(i)>tol
 %         break;
@@ -61,10 +61,10 @@ while i<=n
     % Reset variables
     x = x0(2:m);
     m = m - 1;
-    k = 1;
     i = i + 1;
 end
 E=lambda(1:s);
 err=err(1:s);
+k=k(1:s);
 end
 
