@@ -5,57 +5,45 @@ format long
 more on
 
 disp("This test is meant to show how fast the function is")
-disp("It also shows that the function does not crush for too many subintervals")
-disp("Area is a rectangle <0,1>x<0,1>.")
-disp("It uses functions for which this method might be not accurate, " + ...
-    "especially for small number of subintervals")
+disp("It also shows that the function does not crush for too big matrixes")
+disp("It uses random nxn matrixes")
 
-f=@(x,y)(x.^2+y.^2);
-disp("Results for f(x,y)=x^2+y^2:")
-disp("Correct result is 0.666...")
+A=rand(10);
+disp("For 10x10 matrix:")
 tic;
-I=P1Z33_DSE_doubleintegral(f,0,1,0,1,10,10);
+[~]=P2Z33_DSE_eigenvalues(A);
 t=toc;
-disp(strcat("For 10 subintervals each variable program returned ",num2str(I)," after ",num2str(t)," seconds"))
-tic;
-I=P1Z33_DSE_doubleintegral(f,0,1,0,1,100,100);
-t=toc;
-disp(strcat("For 100 subintervals each variable program returned ",num2str(I)," after ",num2str(t)," seconds"))
-tic;
-I=P1Z33_DSE_doubleintegral(f,0,1,0,1,1000,1000);
-t=toc;
-disp(strcat("For 1000 subintervals each variable program returned ",num2str(I)," after ",num2str(t)," seconds"))
+disp(strcat("Function worked for ",num2str(t)," seconds"))
 
-f=@(x,y)(x.^6+x.^3.*y.^5+y.^4);
-disp("Results for f(x,y)=x^6+x^3*y^5+y^4:")
-disp("Correct result is 0.384...")
+disp(' ')
+A=rand(100);
+disp("For 100x100 matrix:")
 tic;
-I=P1Z33_DSE_doubleintegral(f,0,1,0,1,10,10);
+[~]=P2Z33_DSE_eigenvalues(A);
 t=toc;
-disp(strcat("For 10 subintervals each variable program returned ",num2str(I)," after ",num2str(t)," seconds"))
-tic;
-I=P1Z33_DSE_doubleintegral(f,0,1,0,1,100,100);
-t=toc;
-disp(strcat("For 100 subintervals each variable program returned ",num2str(I)," after ",num2str(t)," seconds"))
-tic;
-I=P1Z33_DSE_doubleintegral(f,0,1,0,1,1000,1000);
-t=toc;
-disp(strcat("For 1000 subintervals each variable program returned ",num2str(I)," after ",num2str(t)," seconds"))
+disp(strcat("Function worked for ",num2str(t)," seconds"))
 
-f=@(x,y)(sin(x)+sin(y));
-disp("Results for f(x,y)=sin(x)+sin(y):")
-disp("Correct result is 0.9194...")
+disp(' ')
+A=rand(300);
+disp("For 300x300 matrix:")
 tic;
-I=P1Z33_DSE_doubleintegral(f,0,1,0,1,10,10);
+[~]=P2Z33_DSE_eigenvalues(A);
 t=toc;
-disp(strcat("For 10 subintervals each variable program returned ",num2str(I)," after ",num2str(t)," seconds"))
-tic;
-I=P1Z33_DSE_doubleintegral(f,0,1,0,1,100,100);
-t=toc;
-disp(strcat("For 100 subintervals each variable program returned ",num2str(I)," after ",num2str(t)," seconds"))
-tic;
-I=P1Z33_DSE_doubleintegral(f,0,1,0,1,1000,1000);
-t=toc;
-disp(strcat("For 1000 subintervals each variable program returned ",num2str(I)," after ",num2str(t)," seconds"))
+disp(strcat("Function worked for ",num2str(t)," seconds"))
 
+disp(' ')
+A=rand(500);
+disp("For 500x500 matrix:")
+tic;
+[~]=P2Z33_DSE_eigenvalues(A);
+t=toc;
+disp(strcat("Function worked for ",num2str(t)," seconds"))
+
+disp(' ')
+A=rand(1000);
+disp("For 1000x1000 matrix:")
+tic;
+[~]=P2Z33_DSE_eigenvalues(A);
+t=toc;
+disp(strcat("Function worked for ",num2str(t)," seconds"))
 end

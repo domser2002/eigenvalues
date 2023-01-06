@@ -17,7 +17,7 @@ function [E,err,k,x0] = P2Z33_DSE_eigenvalues(A,tol,kmax)
 arguments
     A
     tol=1e-6;
-    kmax=100;
+    kmax=500;
 end
 %warning('off', 'all')
 n=size(A,1);
@@ -28,7 +28,9 @@ err=ones(1,n);
 k=1;
 i=1;
 x=x0;
-while true
+m=n;
+s=0;
+while i<=n
     while k<kmax
         if err(i)<tol
             break;
@@ -38,22 +40,31 @@ while true
         % Compute the new approximation of the eigenvalue
         lambdaNew = (y'*x)/(x'*x);
         % Compute the error between the old and new approximations of the eigenvalue
-        err(i) = abs(lambda(i) - lambdaNew);
+        err(i) = abs((lambda(i) - lambdaNew)/lambda(i));
         % Update the variables
         lambda(i) = lambdaNew;
         x = y/norm(y);
-        k=k+1;
+        k = k + 1;
     end
-    if k==kmax
-        break;
+%     if err(i)>tol
+%         break;
+%     end
+    if i>2
+        if lambda(i)==lambda(i-1)
+            s = s - 1;
+            break;
+        end
     end
+    s = s + 1;
     % Deflate the matrix A
-    A = A - lambda(i)*(x*x');
+    A=deflate(A,m,x);
     % Reset variables
-    x = x0;
+    x = x0(2:m);
+    m = m - 1;
     k = 1;
-    i=i+1;
+    i = i + 1;
 end
-E=lambda;
+E=lambda(1:s);
+err=err(1:s);
 end
 
