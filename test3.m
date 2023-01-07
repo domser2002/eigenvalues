@@ -1,9 +1,10 @@
 function test3
 %Autor: Dominik_Seredyn_320732
 
+more on
 disp("This is a numeric and implementation test")
 disp("It plots approximate computational complexity of the function")
-k=150;
+k=700;
 n=1:k;
 t=zeros([k 1]);
 for i=1:k
