@@ -11,7 +11,8 @@ function [E,err,k] = P2Z33_DSE_eigenvalues(A,tol,kmax)
 % tol (optional) - error tolerance, by default 1e-6,
 % kmax (optional) - max number of iterations, by defaut 500.
 % Return values:
-% E - vector of eigenvalues of matrix A which were possible to find,
+% E - vector of first s-1 eigenvalues of matrix A, if err>tol for E(i) it 
+% stops at this point, next eigenvalues also will not be accurate, 
 % err - vector of errors after all iterations,
 % k - vector of numbers of iterations performed.
 arguments
@@ -30,7 +31,7 @@ i=1;
 x=x0;
 m=n;
 s=0;
-while i<=n
+while i<=n-1
     while k(i)<kmax
         % new approximation of eigenvector
         xNew = A*x;
@@ -48,10 +49,17 @@ while i<=n
     end
     % check if found the same eigenvalue again
     if i>2
-        if lambda(i)-lambda(i-1)<tol
-            s = s - 1;
+        if abs(abs(lambda(i))-abs(lambda(i-1)))<tol
             break;
         end
+    end
+    % NaN means eigenvalue is 0
+    if isnan(lambda(i))
+        break;
+    end
+    % if lambda(i) is innaccurate, lambda(i+1) will also be
+    if err(i)>tol
+        break;
     end
     s = s + 1;
     % deflate matrix A
